@@ -27,21 +27,21 @@ function MarqueeTrackItems({ ariaHidden }: { ariaHidden?: boolean }) {
           href={`/works/${item.slug}`}
           aria-hidden={ariaHidden}
           tabIndex={ariaHidden ? -1 : undefined}
-          className="group/item relative mr-6 block h-[180px] w-[280px] shrink-0 overflow-hidden rounded-2xl border border-lavender-200 bg-cream-50 shadow-md"
+          className="group/item relative mr-6 block h-[225px] w-[350px] shrink-0 overflow-hidden rounded-2xl border border-lavender-200 bg-cream-50 shadow-md"
         >
           {/* browser-window chrome: gives every screenshot a shared frame
               regardless of the source app's own colors */}
-          <div className="flex h-7 items-center gap-1.5 border-b border-lavender-200 bg-cream-100 px-3">
+          <div className="flex h-9 items-center gap-1.5 border-b border-lavender-200 bg-cream-100 px-3">
             <span className="h-2 w-2 rounded-full bg-blush-300" />
             <span className="h-2 w-2 rounded-full bg-lavender-300" />
             <span className="h-2 w-2 rounded-full bg-cream-300" />
           </div>
-          <div className="relative h-[152px] w-full">
+          <div className="relative h-[189px] w-full">
             <Image
               src={item.src}
               alt={item.title}
               fill
-              sizes="280px"
+              sizes="350px"
               className="object-cover transition-transform duration-300 group-hover/item:scale-105"
             />
           </div>

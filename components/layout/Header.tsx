@@ -40,11 +40,17 @@ export function Header() {
           <Link href="/" className="font-heading text-lg text-ink">
             {SITE_NAME}
           </Link>
+          {/* While open, this button sits under Nav's own z-40 panel and is
+              visually covered — aria-hidden/tabIndex keep it out of the
+              accessibility tree so it doesn't clash with Nav's close button,
+              which is the one actually reachable while the panel is open. */}
           <button
             onClick={() => setIsNavOpen((v) => !v)}
             aria-expanded={isNavOpen}
             aria-controls="site-nav"
             aria-label={isNavOpen ? "メニューを閉じる" : "メニューを開く"}
+            aria-hidden={isNavOpen}
+            tabIndex={isNavOpen ? -1 : undefined}
             className="rounded-full p-3 text-ink transition-colors hover:bg-lavender-100"
           >
             {isNavOpen ? <X size={32} /> : <Menu size={32} />}

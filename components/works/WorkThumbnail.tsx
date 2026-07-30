@@ -7,7 +7,7 @@ type WorkThumbnailProps = {
 
 export function WorkThumbnail({ src, alt }: WorkThumbnailProps) {
   return (
-    <div className="relative aspect-[16/10] overflow-hidden rounded-t-2xl bg-cream-200">
+    <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl bg-cream-200">
       <Image
         src={src}
         alt={alt}

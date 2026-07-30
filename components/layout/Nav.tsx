@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
 import { NavIllustration } from "./NavIllustration";
 
@@ -24,6 +25,16 @@ export function Nav({ isOpen, onClose }: NavProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
+          {/* The header's own hamburger/close button sits at z-20, below this
+              panel's z-40, so it's covered and unclickable while open — this
+              button is the panel's own, always-reachable close control. */}
+          <button
+            onClick={onClose}
+            aria-label="メニューを閉じる"
+            className="absolute right-4 top-4 rounded-full p-3 text-ink transition-colors hover:bg-lavender-100 sm:right-6 sm:top-6"
+          >
+            <X size={32} />
+          </button>
           <nav className="flex flex-col gap-8 text-center font-heading text-3xl text-ink">
             {NAV_ITEMS.map((item, i) => (
               <motion.div

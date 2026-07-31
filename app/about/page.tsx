@@ -1,5 +1,5 @@
 import { AboutHero } from "@/components/about/AboutHero";
-import { CareerSection } from "@/components/about/CareerSection";
+import { ProfileSection } from "@/components/about/ProfileSection";
 import { ValuesSection } from "@/components/about/ValuesSection";
 import { SkillsSection } from "@/components/about/SkillsSection";
 import { ContactSection } from "@/components/shared/ContactSection";
@@ -30,7 +30,7 @@ export default function AboutPage() {
             className="-right-4 bottom-16"
           />
         </div>
-        <CareerSection />
+        <ProfileSection />
         <ValuesSection />
       </div>
       <SkillsSection />

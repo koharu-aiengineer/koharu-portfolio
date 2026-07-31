@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { CAREER_LINES, FEELINGS_LINES, SITE_NAME, VALUES_SUMMARY } from "@/lib/constants";
+import { CAREER_LINES, FEELINGS_LINES, SITE_NAME, VALUES } from "@/lib/constants";
+
+const PROFILE_SECTIONS = [
+  { title: "きっかけ", lines: CAREER_LINES },
+  { title: "大切にしていること", lines: VALUES.map((value) => value.body) },
+  { title: "ものづくりへの想い", lines: FEELINGS_LINES },
+];
 
 export function ProfileSection() {
   return (
@@ -10,10 +16,17 @@ export function ProfileSection() {
             {SITE_NAME}
           </p>
           <h2 className="mt-2 font-heading text-3xl text-ink md:text-4xl">{SITE_NAME}</h2>
-          <div className="mt-6 space-y-5 font-medium leading-relaxed text-ink-muted">
-            <p>{CAREER_LINES.join("")}</p>
-            <p>{VALUES_SUMMARY}</p>
-            <p>{FEELINGS_LINES.join("")}</p>
+          <div className="mt-8 space-y-6">
+            {PROFILE_SECTIONS.map((section) => (
+              <div key={section.title}>
+                <h3 className="font-heading text-base font-bold text-ink">{section.title}</h3>
+                <div className="mt-2 space-y-2 font-medium leading-relaxed text-ink-muted">
+                  {section.lines.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

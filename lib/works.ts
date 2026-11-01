@@ -26,6 +26,24 @@ function workImages(slug: string, subCount: number): WorkImages {
 
 export const WORKS: Work[] = [
   {
+    slug: "ai-invoice-ocr",
+    title: "AI請求書OCR自動仕訳システム",
+    summary:
+      "請求書・領収書をアップロードすると、AIが読み取り・勘定科目の自動分類・信頼度判定・月次集計までを自動で行うシステム",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Google Apps Script",
+      "Google Sheets API",
+      "Google Drive API",
+      "OpenAI API",
+      "Vercel",
+    ],
+    status: "completed",
+    images: workImages("ai-invoice-ocr", 5),
+  },
+  {
     slug: "rag-system",
     title: "AI社内ドキュメント検索システム",
     summary:
@@ -68,6 +86,23 @@ export const WORKS: Work[] = [
     tags: ["AIエージェント", "note.com", "ダッシュボード"],
     status: "in-progress",
     images: workImages("ai-jitan-studio", 1),
+  },
+  {
+    slug: "shift-scheduler",
+    title: "AIシフト自動生成システム",
+    summary:
+      "休み希望・雇用形態別ルール・必要人数を踏まえ、店舗スタッフのシフト表を自動生成するWebシステム。LLMを使わず、制約充足問題として独自アルゴリズムで解いている点が特徴",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Google Sheets API",
+      "Google OAuth",
+      "Vitest",
+      "Vercel",
+    ],
+    status: "completed",
+    images: workImages("shift-scheduler", 3),
   },
   {
     slug: "portfolio-site",

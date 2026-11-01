@@ -11,7 +11,7 @@ export const INTRO_LINES = [
   "Next.jsとAI APIを組み合わせて、企業の問い合わせ対応や社内ドキュメント検索など、日々の業務を助けるツールをつくっています。",
 ] as const;
 
-export const HOME_WORK_SLUGS = ["rag-system", "ec-cs-chatbot", "snap-translate"] as const;
+export const HOME_WORK_SLUGS = ["rag-system", "shift-scheduler", "ai-invoice-ocr"] as const;
 
 export const ABOUT_TEASER =
   "お世話になっている方の勧めをきっかけに、AIエンジニアの道へ。Next.jsやAI連携を軸に、フルスタック開発に取り組んでいます。";

@@ -1,3 +1,5 @@
+import { HOME_WORK_SLUGS } from "./constants";
+
 export type WorkStatus = "completed" | "in-progress";
 
 export type WorkImages = {
@@ -24,7 +26,10 @@ function workImages(slug: string, subCount: number): WorkImages {
   };
 }
 
-export const WORKS: Work[] = [
+// Author new works here in any order — display order is derived below
+// (pickup picks first, in-progress works always last), so this list never
+// needs manual reordering as HOME_WORK_SLUGS or statuses change.
+const ALL_WORKS: Work[] = [
   {
     slug: "ai-invoice-ocr",
     title: "AI請求書OCR自動仕訳システム",
@@ -114,3 +119,23 @@ export const WORKS: Work[] = [
     images: workImages("portfolio-site", 0),
   },
 ];
+
+// HOME_WORK_SLUGS as a plain string[] so .indexOf() accepts any slug,
+// not just the literal union TypeScript would otherwise require.
+const PICKUP_SLUGS: readonly string[] = HOME_WORK_SLUGS;
+
+function pickupRank(slug: string): number {
+  const index = PICKUP_SLUGS.indexOf(slug);
+  return index === -1 ? Number.POSITIVE_INFINITY : index;
+}
+
+// Display order used everywhere (Works list, home marquee): pickup works
+// lead (in HOME_WORK_SLUGS order), then the rest of the completed works in
+// their authored order, then in-progress works last. Array.prototype.sort
+// is stable, so ties (equal rank) keep their ALL_WORKS order.
+export const WORKS: Work[] = [...ALL_WORKS].sort((a, b) => {
+  const statusRank = (w: Work) => (w.status === "in-progress" ? 1 : 0);
+  const statusDiff = statusRank(a) - statusRank(b);
+  if (statusDiff !== 0) return statusDiff;
+  return pickupRank(a.slug) - pickupRank(b.slug);
+});

@@ -114,16 +114,31 @@ export default async function WorkDetailPage({
                     </li>
                   ))}
                 </ul>
-                {detail.deliverableUrl && (
-                  <a
-                    href={detail.deliverableUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm text-lavender-600 hover:underline"
-                  >
-                    {deliverableLabel(detail.deliverableUrl)}
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
+                {(detail.deliverableUrl || detail.demoUrl) && (
+                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                    {detail.deliverableUrl && (
+                      <a
+                        href={detail.deliverableUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-lavender-600 hover:underline"
+                      >
+                        {deliverableLabel(detail.deliverableUrl)}
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                    {detail.demoUrl && (
+                      <a
+                        href={detail.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-lavender-600 hover:underline"
+                      >
+                        デモを見る
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                  </div>
                 )}
               </section>
             </div>

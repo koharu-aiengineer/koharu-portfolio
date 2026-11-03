@@ -110,6 +110,25 @@ const ALL_WORKS: Work[] = [
     images: workImages("shift-scheduler", 3),
   },
   {
+    slug: "todo-calendar",
+    title: "営業ToDoカレンダー",
+    summary:
+      "営業の予定を週カレンダーで管理し、Googleカレンダーへ自動同期するタスク管理アプリ。商談ごとの「見込み度」を色分けして記録でき、データはスプレッドシートに保存、週次・月次のCSV出力にも対応している点が特徴",
+    tags: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "FullCalendar",
+      "Google Calendar API",
+      "Google Sheets API",
+      "Google OAuth",
+      "Bolt",
+    ],
+    status: "completed",
+    images: workImages("todo-calendar", 3),
+  },
+  {
     slug: "portfolio-site",
     title: "このポートフォリオサイト",
     summary:

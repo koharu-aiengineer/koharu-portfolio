@@ -1,5 +1,6 @@
+import { Fragment } from "react";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ArrowDown, ArrowRight, CornerDownRight, ExternalLink } from "lucide-react";
 import { WORKS, type Work } from "@/lib/works";
 import { WORK_DETAILS } from "@/lib/work-details";
 import { WorkGallery } from "@/components/works/WorkGallery";
@@ -52,7 +53,43 @@ export default async function WorkDetailPage({
             </span>
           </div>
 
-          <WorkGallery main={work.images.main} subs={work.images.subs} title={work.title} />
+          {detail?.flow && (
+            <section
+              aria-label={detail.flow.title}
+              className="mt-8 rounded-2xl border border-lavender-200 bg-cream-50 p-5 sm:p-6"
+            >
+              <h2 className="font-heading text-base text-lavender-700">{detail.flow.title}</h2>
+              <ol className="mt-4 flex flex-col items-stretch gap-2 md:flex-row md:items-center">
+                {detail.flow.steps.map((step, i) => (
+                  <Fragment key={step}>
+                    {i > 0 && (
+                      <li aria-hidden="true" className="flex justify-center text-lavender-400">
+                        <ArrowDown className="h-4 w-4 md:hidden" />
+                        <ArrowRight className="hidden h-4 w-4 md:block" />
+                      </li>
+                    )}
+                    <li className="rounded-xl bg-lavender-50 px-3 py-2 text-center text-xs leading-relaxed text-ink md:flex-1">
+                      {step}
+                    </li>
+                  </Fragment>
+                ))}
+              </ol>
+              {detail.flow.branch && (
+                <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-muted">
+                  <CornerDownRight className="mt-0.5 h-4 w-4 shrink-0 text-blush-500" />
+                  {detail.flow.branch}
+                </p>
+              )}
+            </section>
+          )}
+
+          <WorkGallery
+            main={work.images.main}
+            subs={work.images.subs}
+            title={work.title}
+            mainMeta={work.images.mainMeta}
+            subsMeta={work.images.subsMeta}
+          />
 
           {!detail ? (
             <div className="mt-8 rounded-2xl bg-cream-50 p-8 text-center text-ink-muted">

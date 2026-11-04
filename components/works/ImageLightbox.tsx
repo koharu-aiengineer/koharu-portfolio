@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 export type LightboxImage = {
   src: string;
   alt: string;
+  caption?: string;
 };
 
 type ImageLightboxProps = {
@@ -110,10 +111,15 @@ export function ImageLightbox({ images, index, onClose, onIndexChange }: ImageLi
             </button>
           )}
 
-          {hasMultiple && (
-            <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-sm text-cream-50">
-              {index + 1} / {images.length}
-            </p>
+          {(current.caption || hasMultiple) && (
+            <div className="absolute bottom-5 left-1/2 w-full max-w-4xl -translate-x-1/2 px-6 text-center text-sm text-cream-50">
+              {current.caption && <p>{current.caption}</p>}
+              {hasMultiple && (
+                <p className={current.caption ? "mt-1 text-cream-50/80" : undefined}>
+                  {index + 1} / {images.length}
+                </p>
+              )}
+            </div>
           )}
         </motion.div>
       )}

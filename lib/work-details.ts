@@ -1,4 +1,13 @@
+// A short text flow diagram shown at the top of the detail page.
+// `branch` renders as a side note below the main steps (e.g. escalation).
+export type WorkFlow = {
+  title: string;
+  steps: string[];
+  branch?: string;
+};
+
 export type WorkDetail = {
+  flow?: WorkFlow;
   overview: string;
   designPoints: string[];
   challenge?: string;
@@ -55,15 +64,28 @@ export const WORK_DETAILS: Partial<Record<string, WorkDetail>> = {
     deliverableUrl: "https://github.com/koharu-aiengineer/snap-translate",
   },
   "ec-cs-chatbot": {
+    flow: {
+      title: "LINE連携の流れ",
+      steps: [
+        "お客様がLINEで質問",
+        "LINE Messaging API(Webhook)で受信",
+        "Vercel Serverless Functions",
+        "OpenAI API(gpt-4o-mini)がSupabase上のFAQ・メニュー情報をもとに回答",
+        "LINEで返信",
+      ],
+      branch: "回答できない質問は、オーナーのLINEへ通知(エスカレーション)",
+    },
     overview:
-      "D2Cブランド(架空のクライアント想定)からの依頼で、ECサイトにAIカスタマーサポートチャットを導入する案件です。2週間のMVP期間という制約の中で、要件の優先順位を判断しながら設計しました。",
+      "個人経営の美容室オーナーを想定した模擬案件です。LINEで届く営業時間・メニュー・料金などの問い合わせに、AIが自動で回答するLINE Botを構築しました。回答できない質問はオーナーのLINEへ通知し、FAQ・メニュー・料金の更新、会話ログの確認、お知らせの一斉配信は管理画面から行えます。",
     challenge:
-      "問い合わせフォームのみの対応で返信に1〜2日かかり、離脱が発生していることが課題でした。ECサイトはShopifyを利用し、月間問い合わせは約500件(在庫確認30%・商品質問25%・配送状況20%・返品15%・その他10%)。オペレーターは2名体制(フルタイム1名+パート1名、営業時間10〜18時)で、時間外はAIのみで対応する必要がありました。依頼内容は「AI自動応答+エスカレーション+分析レポート」の3機能でしたが、2週間のMVP期間では全て実現するのは現実的ではなく、AI自動応答を優先して実装する判断をしました。",
+      "LINEで届く営業時間・メニュー・料金などの問い合わせへの対応が、オーナーの負担になっていることが課題でした。",
     designPoints: [
-      "AIはOpenAI API(gpt-4o-mini)を採用し、対応範囲外の質問はsystem promptでOUT_OF_SCOPE判定 — 人が対応すべき問い合わせを自動で切り分け",
-      "FAQ回答データはSupabaseのテーブルで管理し、更新しやすい構成に",
-      "WebhookサーバーはVercel Serverless Functionsで完結させ、追加のサーバー管理コストをかけない構成",
-      "オーナーへの通知は、専用の管理画面を作る代わりにLINE個人アカウントへのメッセージ転送で実現し、開発コストを抑えつつ即座に気づける形にした",
+      "LINE Messaging APIのWebhookで受け取ったメッセージに対し、OpenAI API(gpt-4o-mini)がSupabase上のFAQ・メニュー情報をもとに回答し、LINEで返信する構成",
+      "回答できない質問はsystem promptで判定 — 人が対応すべき問い合わせを自動で切り分け、オーナーのLINEへ通知(エスカレーション)",
+      "オーナーへの通知はLINEへのメッセージで届け、開発コストを抑えつつ即座に気づける形にした",
+      "FAQ・メニュー・料金はSupabaseのテーブルで管理 — 更新のたびに再デプロイが不要で、管理画面からオーナー自身が更新できる構成に",
+      "WebhookサーバーはVercel Serverless Functionsで完結させ、追加のサーバー管理コストをかけない構成(1日10〜15件規模の問い合わせを想定)",
+      "管理画面では、会話ログの確認とお知らせの一斉配信もできる",
     ],
   },
   "tech-learning-assistant": {

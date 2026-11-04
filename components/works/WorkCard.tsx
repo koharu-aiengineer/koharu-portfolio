@@ -18,7 +18,7 @@ export function WorkCard({ work }: { work: Work }) {
       href={`/works/${work.slug}`}
       className="group block overflow-hidden rounded-2xl bg-cream-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
-      <WorkThumbnail src={work.images.main} alt={work.title} />
+      <WorkThumbnail src={work.images.main} alt={work.images.mainMeta?.alt ?? work.title} />
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-heading text-lg font-bold text-ink">{work.title}</h3>

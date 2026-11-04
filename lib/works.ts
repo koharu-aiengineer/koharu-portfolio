@@ -2,9 +2,18 @@ import { HOME_WORK_SLUGS } from "./constants";
 
 export type WorkStatus = "completed" | "in-progress";
 
+// Optional per-image alt text and caption. When omitted, alt falls back to
+// the work title (main) / "{title} サブ画像N" (subs) and no caption is shown.
+export type WorkImageMeta = {
+  alt: string;
+  caption?: string;
+};
+
 export type WorkImages = {
   main: string;
   subs: string[];
+  mainMeta?: WorkImageMeta;
+  subsMeta?: WorkImageMeta[];
 };
 
 export type Work = {
@@ -86,12 +95,38 @@ const ALL_WORKS: Work[] = [
   },
   {
     slug: "ec-cs-chatbot",
-    title: "ECサポートAIチャットボット",
+    title: "美容室向けLINE自動応答Bot",
     summary:
-      "D2Cブランドのお問い合わせ対応を、AI自動応答とエスカレーションで効率化するMVP設計",
-    tags: ["Shopify連携", "OpenAI API", "Supabase", "Vercel"],
+      "個人経営の美容室向けに、LINEで届くよくある質問へAIが自動で答え、答えられない内容はオーナーへ通知するLINE Bot。管理画面からFAQやメニューの更新、お知らせ配信もできる",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "LINE Messaging API",
+      "OpenAI API",
+      "Supabase",
+      "Vercel",
+    ],
     status: "completed",
-    images: workImages("ec-cs-chatbot", 3),
+    images: {
+      ...workImages("ec-cs-chatbot", 4),
+      mainMeta: {
+        alt: "LINEのトーク画面で、料金の質問にBotが自動で返信している様子",
+        caption: "LINEトーク画面:よくある質問にAIが自動で返信",
+      },
+      subsMeta: [
+        {
+          alt: "回答できない質問を受けて、オーナーのLINEに未回答の質問が通知されている画面",
+          caption: "回答できない質問は、オーナーのLINEへ通知",
+        },
+        { alt: "管理画面のFAQ管理画面", caption: "FAQ管理画面" },
+        {
+          alt: "管理画面の会話ログ画面。対応済み・未対応の会話が一覧表示されている",
+          caption: "会話ログ画面",
+        },
+        { alt: "管理画面のお知らせ一斉配信画面", caption: "お知らせ一斉配信画面" },
+      ],
+    },
   },
   {
     slug: "tech-learning-assistant",

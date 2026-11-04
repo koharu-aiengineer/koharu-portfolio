@@ -5,6 +5,7 @@ import { WORKS } from "@/lib/works";
 const MARQUEE_ITEMS = WORKS.map((work) => ({
   slug: work.slug,
   title: work.title,
+  alt: work.images.mainMeta?.alt ?? work.title,
   src: work.images.main,
 }));
 
@@ -39,7 +40,7 @@ function MarqueeTrackItems({ ariaHidden }: { ariaHidden?: boolean }) {
           <div className="relative h-[189px] w-full">
             <Image
               src={item.src}
-              alt={item.title}
+              alt={item.alt}
               fill
               sizes="350px"
               className="object-cover transition-transform duration-300 group-hover/item:scale-105"

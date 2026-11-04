@@ -3,12 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ZoomIn } from "lucide-react";
+import type { WorkImageMeta } from "@/lib/works";
 import { ImageLightbox, type LightboxImage } from "./ImageLightbox";
 
 type WorkGalleryProps = {
   main: string;
   subs: string[];
   title: string;
+  mainMeta?: WorkImageMeta;
+  subsMeta?: WorkImageMeta[];
 };
 
 // Shown in the corner at all times (so touch devices, which never see a
@@ -21,50 +24,68 @@ function ZoomBadge() {
   );
 }
 
-export function WorkGallery({ main, subs, title }: WorkGalleryProps) {
+export function WorkGallery({ main, subs, title, mainMeta, subsMeta }: WorkGalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const images: LightboxImage[] = [
-    { src: main, alt: title },
-    ...subs.map((src, i) => ({ src, alt: `${title} サブ画像${i + 1}` })),
+    { src: main, alt: mainMeta?.alt ?? title, caption: mainMeta?.caption },
+    ...subs.map((src, i) => ({
+      src,
+      alt: subsMeta?.[i]?.alt ?? `${title} サブ画像${i + 1}`,
+      caption: subsMeta?.[i]?.caption,
+    })),
   ];
+  const [mainImage, ...subImages] = images;
 
   return (
     <>
-      <button
-        onClick={() => setLightboxIndex(0)}
-        aria-label={`${title} のメイン画像を拡大表示`}
-        className="group relative mt-8 block aspect-[16/9] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-cream-200"
-      >
-        <Image
-          src={main}
-          alt={title}
-          fill
-          sizes="(min-width: 768px) 768px, 100vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-          priority
-        />
-        <ZoomBadge />
-      </button>
+      <figure className="mt-8">
+        <button
+          onClick={() => setLightboxIndex(0)}
+          aria-label={`${mainImage.caption ?? `${title} のメイン画像`}を拡大表示`}
+          className="group relative block aspect-[16/9] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-cream-200"
+        >
+          <Image
+            src={mainImage.src}
+            alt={mainImage.alt}
+            fill
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            priority
+          />
+          <ZoomBadge />
+        </button>
+        {mainImage.caption && (
+          <figcaption className="mt-2 text-center text-sm text-ink-muted">
+            {mainImage.caption}
+          </figcaption>
+        )}
+      </figure>
 
-      {subs.length > 0 && (
+      {subImages.length > 0 && (
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {subs.map((src, i) => (
-            <button
-              key={src}
-              onClick={() => setLightboxIndex(i + 1)}
-              aria-label={`${title} のサブ画像${i + 1}を拡大表示`}
-              className="group relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-2xl bg-cream-200"
-            >
-              <Image
-                src={src}
-                alt={`${title} サブ画像${i + 1}`}
-                fill
-                sizes="(min-width: 640px) 33vw, 50vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <ZoomBadge />
-            </button>
+          {subImages.map((image, i) => (
+            <figure key={image.src}>
+              <button
+                onClick={() => setLightboxIndex(i + 1)}
+                aria-label={`${image.caption ?? `${title} のサブ画像${i + 1}`}を拡大表示`}
+                className="group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-cream-200"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(min-width: 640px) 33vw, 50vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <ZoomBadge />
+              </button>
+              {image.caption && (
+                <figcaption className="mt-2 text-center text-xs leading-relaxed text-ink-muted">
+                  {image.caption}
+                </figcaption>
+              )}
+            </figure>
           ))}
         </div>
       )}

@@ -16,11 +16,7 @@ export const HOME_WORK_SLUGS = ["rag-system", "shift-scheduler", "ai-invoice-ocr
 export const ABOUT_TEASER =
   "お世話になっている方の勧めをきっかけに、AIエンジニアの道へ。Next.jsやAI連携を軸に、フルスタック開発に取り組んでいます。";
 
-// TODO: replace with the real contact address before publishing.
-export const CONTACT_EMAIL = "contact@example.com";
-
 export const CONTACT_GREETING = "ご覧いただき、ありがとうございます";
-export const CONTACT_GUIDE = "下記のメールアドレスにお気軽にご連絡ください";
 
 export const CAREER_LINES = [
   "お世話になっている方に勧めてもらったのがきっかけで、AIエンジニアという道を知りました。",
